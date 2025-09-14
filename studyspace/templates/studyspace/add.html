@@ -1,0 +1,73 @@
+{% extends "studyspace/layout.html" %}
+<!--This page is for adding links, text and importing pdfs-->
+
+
+{% block body %}
+    <div class='conatiner text-center p-3 m-3'>
+        <div class="row justify-content-center">
+          <!--First column-->
+            <div class="col p-3 border border-secondary rounded shadow">
+                    <div class="input-group p-3 mb-3 w-50">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Title</span>
+                        </div>
+                        {% if t is True %}
+                            <input id="title" type="text" class="form-control shadow-sm" value="">
+                        {% else %}
+                            <input type="hidden" id="item_id" value="{{ t.id }}">
+                            <input id="title" type="text" class="form-control shadow-sm" value="{{ t.title }}">
+                        {% endif %}
+                    </div>
+    
+                      <div class="input-group p-3 mb-3 w-75">
+                        {% if t is True %}
+                            <textarea id='txt' class="form-control shadow-sm" rows="10" style=" height:75%; overflow: hidden;"></textarea>
+                        {% else %}
+                            <textarea id='txt' class="form-control shadow-sm" rows="10" style=" height:75%; overflow: hidden;">{{ t.txt }}</textarea>
+                        {% endif %}
+                      </div>
+
+                    
+                        <div class="col-md">
+                            <button id='save' data-csrf-token="{{ csrf_token }}" type='button' class="btn btn-primary float-right m-3">Save</button>
+                        </div>
+                    </div>  
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        const b = document.getElementById('save');
+        b.addEventListener('click', () => {
+            const title = document.getElementById('title');
+            const txt = document.getElementById('txt');
+            const item_d = document.getElementById('item_id');
+            const csrftoken = b.dataset.csrfToken;
+            const dataToSend = {
+                'title': title.value,
+                'txt': txt.value,
+            }
+            if (item_d) {
+                dataToSend['id'] = item_d.value;
+            }
+            fetch('{% url "save" %}', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(dataToSend)
+        })
+        .then(response => response.json()) // or response.text() depending on what your view returns
+        .then(data => {
+            if (data.status === 'success') {
+                window.location.href = data.redirect_url;  // navigate to HTML view
+            }
+    })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+    });
+    </script>
+        
+{% endblock %}

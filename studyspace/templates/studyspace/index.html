@@ -1,0 +1,138 @@
+{% extends "studyspace/layout.html" %}
+<!--This page is for the profile page or page should appear after user loggedin.-->
+{% block body %}
+    {% if user.is_authenticated %}      
+        <div class="container p-3">
+            <h3 id="box" class="border p-3 text-center border-secondary rounded shadow-sm">
+                Hi, {{ user }} &#128075;
+            </h3>
+            <!--Link these from one page to other when requested-->
+            <div class="container p-4 position-relative">
+
+                {% if Ic is 0 and Tc is 0 %}
+                    <p class="h4 p-3 text-center">Select one feature to get started</p>
+                {% endif %}
+                
+                <div class="text-center">
+                    <button type='button' class="btn btn-primary m-3">
+                        <a style="text-decoration:none; color:white;" href="{% url 'list' %}">InfoStore</a> 
+                        <span id="foo" class="badge badge-light border border-light">{{ Ic }}</span>
+                    </button>
+                    <button type='button' class="btn btn-primary m-3">
+                        <a style="text-decoration:none; color:white;" href="{% url 'watch' %}">Stopwatch</a>
+                    </button>
+                    <button type='button' class="btn btn-primary m-3">
+                        <a style="text-decoration:none; color:white;" href="{% url 'quotes' %}">Quotes</a> 
+                    </button>
+                    <button type='button' class="btn btn-primary m-3">
+                        <a style="text-decoration:none; color:white;" href="{% url 'task' %}">Task Tracker</a> 
+                        <span class="badge badge-light border border-light">{{ Tc }}</span>
+                    </button>  
+                </div>
+
+                <div class="row m-3">
+                    <div class="col">
+                        <div id="card" class="card shadow">
+                            <div class="card-header">
+                                InfoStore <span class="material-symbols-outlined">collections_bookmark</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Store important information like revision notes or links as notes to view. Create, Update, and delete the information.</p>
+                                <p class="lead">Currently you have {{ Ic }} cards stored.&#129299;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div id="card1" class="card shadow">
+                            <div class="card-header">
+                                Stopwatch <span class="material-symbols-outlined">timer</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Test yourself and ace the tests using stopwatch.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div id="card2" class="card shadow">
+                            <div class="card-header">
+                                Quotes <span class="material-symbols-outlined">lightbulb</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Get inspired by the quotes, which are random everytime you refresh the page.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div id="card3" class="card shadow">
+                            <div class="card-header">
+                                Task Track <span class="material-symbols-outlined">task</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Keep track of the tasks in the mini-Kanban style. Create, change status, and delete the tasks.</p>
+                                <p class="lead">Currently you have {{ yc }} tasks yet to complete &#129488; and you had completed {{ cc }} tasks.&#129395;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    {% else %}
+        <div class="container p-2 border-bottom">
+            <p class="display-3 text-center">StudySpace</p>
+            <h4 class="text-center font-italic">All-in-one Utility</h4>
+        </div>
+        <div class="container p-3 text-center border-secondary">
+                <p class="h5 text-center">StudySpace is designed to help students with <em>storing information, Task tracker in mini Kanban style</em> and many more. 
+                A mini utility all available in one place.</p>
+                <p class="h6 p-3 text-center"> 
+                    Existing user ->
+                    <button type="button" class="btn btn-primary">
+                        <a style="text-decoration:none; color:white;" href="{% url 'login' %}">
+                            Login
+                        </a>
+                    </button> 
+                    or new user ->
+                    <button type="button" class="btn btn-primary">
+                        <a style="text-decoration:none; color:white;" href="{% url 'register' %}">
+                            Register
+                        </a> 
+                    </button>
+                </p>
+                <img src="static\Frame 1 (1).svg" class="img-fluid">
+        </div>
+    {% endif %}
+
+    <style>
+        .img-fluid, #card, #card2 {
+            animation: float 3s ease-in-out infinite;
+        }
+        #card1, #card3 {
+            animation: float 2.5s ease-in-out infinite;
+        }
+        #card:hover, #card1:hover, #card2:hover, #card3:hover {
+            animation: paused;
+        }
+
+        @keyframes float {
+        0% {
+            transform: translateY(0);
+            }
+
+        50% {
+            transform: translateY(20px);
+            }
+
+        100% {
+            transform: translateY(0);
+            }
+        }
+        
+    </style>
+    
+    
+{% endblock %}

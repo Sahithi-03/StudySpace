@@ -1,0 +1,31 @@
+{% extends "studyspace/layout.html" %}
+
+{% block body %}
+    <div class="container text-center p-4">
+        <img src="https://picsum.photos/400/400" class="img-thumbnail shadow-lg">
+        <div class="container border border-secondary rounded text-center m-3 p-2 shadow position-absolute top-50 start-50 bg-white text-dark" style="width: fit-content;">
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p id="Q"></p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    <cite id="au" title="Source Title"></cite>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+    
+
+    <script>
+        fetch('https://dummyjson.com/quotes/random')
+        .then(res => res.json())
+        .then(data => {
+            const d = document.getElementById('Q');
+            d.innerText = data.quote;
+            const a = document.getElementById('au');
+            a.innerText = data.author;
+            console.log(`${data.quote} — ${data.author}`);
+            
+        });
+    </script>
+{% endblock %}

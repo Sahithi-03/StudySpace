@@ -1,0 +1,32 @@
+{% extends "studyspace/layout.html" %}
+
+{% block body %}
+    <div id="li">
+        <div class="container">
+            <div class="d-flex flex-row mb-3">
+                <div class="p-2">
+                    <button type='button' class="btn btn-primary m-3">
+                        <a style="text-decoration:none; color:white;" href="{% url 'add' %}">New</a> 
+                    </button>
+                </div>
+            </div>
+            <div class="row d-flex align-items-stretch">
+                {% for i in l %}
+                <div class="col-md-4 p-3">
+                    <div class="card h-100 shadow-sm" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.title }}  <a href="{% url 'delete' i.id %}"  class="btn btn-outline-danger rounded-pill float-end"><span class="material-symbols-outlined" style="font-size: small;">close</span></a></h5> 
+                            <h6 class="card-subtitle mb-2 text-muted">{{ i.created_at }}</h6>
+                            <p class="card-text text-truncate">{{ i.txt }}</p>
+
+                            <a class="btn btn-outline-primary" href="{% url 'display' i.id %}">View</a>
+                        </div>
+                    </div>
+                </div>
+                    
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+        
+{% endblock %}

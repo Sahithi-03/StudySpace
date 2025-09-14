@@ -1,0 +1,98 @@
+{% extends "studyspace/layout.html" %}
+
+{% block body %}
+    <div class="container d-inline-block">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <div class="input-group p-3 mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Task Title</span>
+                        </div>
+                        {% if t is None %}
+                            <input id="title" autofocus type="text" class="form-control">
+                        {% else %}
+                            <input type="hidden" id="item_id" value="{{ t.id }}">
+                            <input id="title" autofocus type="text" class="form-control" value="{{ t.title }}">
+                        {% endif %}
+                    </div>
+            </div>
+            <div class="col-2">
+                <button id='save' data-csrf-token="{{ csrf_token }}" type='button' class="btn btn-primary float-right m-3">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container border border-secondary rounded p-3 text-center shadow">
+        <div class="row">
+            <div class="col md-6">
+                <div class="card text-dark bg-info shadow">
+                    <div class="card-header">Task</div>
+                    <ul class="list-group list-group-flush">
+                        {% for i in T %}
+                            <li class="list-group-item">{{ i.name }}  
+                                <a href="{% url 'check' i.id %}" class="btn btn-outline-warning btn-sm rounded-pill">
+                                    <span class="material-symbols-outlined">check</span>
+                                </a> 
+                                <a href="{% url 'delete_task' i.id %}" class="btn btn-outline-danger btn-sm rounded-pill">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col md-6">
+                <div class="card text-white bg-success shadow">
+                    <div class="card-header">Completed</div>
+                    <ul class="list-group list-group-flush">
+                        {% for j in C %}
+                            <li class="list-group-item">{{ j.name }}  
+                                <a href="{% url 'check' j.id %}" class="btn btn-outline-success btn-sm rounded-pill">
+                                    <span class="material-symbols-outlined">check_circle</span>
+                                </a>
+                                <a href="{% url 'delete_task' j.id %}" class="btn btn-outline-danger btn-sm rounded-pill">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        
+
+    <script>
+        const b = document.getElementById('save');
+        b.addEventListener('click', () => {
+            const title = document.getElementById('title');
+            
+            const item_d = document.getElementById('item_id');
+            const csrftoken = b.dataset.csrfToken;
+            const dataToSend = {
+                'title': title.value,
+            }
+            if (item_d) {
+                dataToSend['id'] = item_d.value;
+            }
+            fetch('{% url "save_t" %}', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify(dataToSend)
+            })
+            .then(response => response.json()) 
+            .then(data => {
+                    if (data.status === 'success') {
+                        window.location.href = data.redirect_url; 
+                    }
+            })
+            .catch((error) => {
+                    console.error('Error:', error);
+            })
+        });
+    </script>
+{% endblock %}

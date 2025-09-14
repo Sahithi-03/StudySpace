@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}StudySpace{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+        <!--<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>-->
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+        <link href="{% static 'style.css' %}" rel="stylesheet">
+        <script src="{% static 'script.js' %}"></script>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-secondary rounded">
+
+            {% if user.is_authenticated %}
+                <a class="navbar-brand p-2 text-white" href="{% url 'index' %}"><img src="{% static 'Frame 1 (1).svg' %}" width="30" height="30" alt="">StudySpace</a>
+            {% else %}
+                <a class="navbar-brand p-2 text-white" href="{% url 'index' %}">StudySpace</a>
+            {% endif %}
+            <div>
+                {% if user.is_authenticated %}
+              <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#"><strong>{{ user.username }}</strong></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'index' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'list' %}">InfoStore</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'task' %}">Task track</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'watch' %}">Stopwatch</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'quotes' %}">Quotes</a>
+                    </li>
+               
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+
+                     <li class="nav-item">
+                        <a id="date" class="nav-link text-white position-absolute end-0 p-2"></a>
+                </li>
+                
+                {% endif %}
+                    
+              </ul>
+
+            </div>
+          </nav>
+  
+            <div class="body">
+                {% block body %}
+                {% endblock %}
+            </div>
+
+         
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+            //date-time
+            function change() {
+                var currentDate = new Date();
+                var day = currentDate.getDate();
+                var month = currentDate.getMonth()+1;
+                var year = currentDate.getFullYear();
+
+                var hour = currentDate.getHours();
+                if(hour<10)hour = "0"+hour;
+
+                var minute = currentDate.getMinutes();
+                if(minute<10)minute = "0"+minute;
+
+                var second = currentDate.getSeconds();
+                if(second<10)second = "0"+second;
+
+                document.getElementById("date").innerText = 
+                day+"/"+month+"/"+year+" |"+hour+":"+minute+":"+second;
+
+                setTimeout("change()", 1000);
+            }
+            
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                
+                change();
+                
+            });            
+
+        </script>
+    </body>
+</html>

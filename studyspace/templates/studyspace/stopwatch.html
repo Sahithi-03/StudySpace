@@ -1,0 +1,69 @@
+{% extends "studyspace/layout.html" %}
+
+{% block body %}
+    <div id="time" class="container p-5">
+        <div class="h3 d-flex justify-content-center border border-secondary rounded-pill p-3"  id="time">
+            <span id="hr">00</span>
+            <span>:</span>
+            <span id="min">00</span>
+            <span>:</span>
+            <span id="sec">00</span>
+        </div>
+    </div>
+    <div class="container p-3">
+        <div class="row row-cols-auto justify-content-center p-3">
+            <div class="col">
+                <button id="renew" class="btn btn-outline-info rounded-circle" type="button">
+                    <span id="refresh" class="material-symbols-outlined">
+                        autorenew
+                    </span>
+                </button>
+            </div>
+            <div class="col">
+                <button id="playarrow" class="btn btn-outline-info rounded-circle" type="button">
+                <span id="play" class="material-symbols-outlined">play_arrow</span>
+            </button>
+            </div>
+            <div class="col">
+            <button id="record" class="btn btn-outline-info rounded-circle" type="button">
+                <span id="flag" class="material-symbols-outlined">
+                    flag
+                </span>
+            </button>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <table class="table table-secondary shadow">
+            <thead>
+                <tr>
+                <th scope="col">Lap</th>
+                <th scope="col">Time</th>
+                </tr>
+            </thead>
+            <tbody id="tab">
+                
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        #time {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+        0% {
+            transform: translateY(0);
+            }
+
+        50% {
+            transform: translateY(15px);
+            }
+
+        100% {
+            transform: translateY(0);
+            }
+        }
+    </style>
+    
+{% endblock %}
