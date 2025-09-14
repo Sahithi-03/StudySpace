@@ -9,17 +9,7 @@ The StudySpace is a mini utility space for students which consists Information s
 
 **Quotes** - gives the user a new random Quote everytime they visit the page, quotes can help boost confidence in students, by providing a choice, it makes them more confident to finish the tasks more effectively.
 
-### Distinctiveness and Complexity
-This project is distinctive compared to the previous projects, as they mostly have information sharing between users in different forms like mails, comments, and a sample of public website. But in this case, there is no need to share the information between the users.
-
-The project provides tools for the user and keeps track of the information given by the user in the database and there is no connection between the users to communicate or share responses like in other previous projects. The main aspect of this project concentrates on the students/users to improve themselves everyday. 
-
-This project revovles around the students and supports them in the core aspects.
-The complexity is in the frontend design, where I have included animations for certain elements and designed the logo in figma and included it in the project to make it look professional and also improved the design in iterative format until the last moment, connecting the backend framework with the frontend and debugging the errors. 
-
-The project consists of more than one tool and this rises the complexity to include the tools in the application and to make it easy for the user to navigate the tools within the application. It has utilized 2 models on the backend and javascript in the front-end. It is mobile-responsive as the meta link was used in the `layout.html` file. 
-
-The tools are small in number but not overwhelming to use and keeps it packed which could help students to be more efficient. These features focuses on the core aspects in this busy world to be of help for students to stay focused.
+---
 
 ### Details
 
@@ -55,7 +45,7 @@ The tools are small in number but not overwhelming to use and keeps it packed wh
 
 - `static/style.css` contains the css styling code related to the base and remaining template file.
 
-
+---
 ### How to run
 
 To run the project from terminal and access the files you can use the following steps:
@@ -72,7 +62,3 @@ to run the django server and paste the link
 > http://127.0.0.1:8000/
 
 in the browser to go to the website.
-
-
-### Additional info
-I have created a simple logo using figma and saved it in `svg` format to use in the project for a refined look.
